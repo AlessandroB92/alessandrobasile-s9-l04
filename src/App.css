@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.book-cover {
+  height: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +39,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+.Jumbotron{
+  background-color: lightgray;
+}
+.addComment{
+  background-color: rgb(34, 34, 34);
+  color: white;
+  font-weight: 700;
+  width: 50%;
+  padding: 0.5em;
+  border-radius: 15px;
+  margin: 5px;
 }
