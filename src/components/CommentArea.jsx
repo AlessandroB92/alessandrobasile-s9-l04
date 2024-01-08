@@ -1,39 +1,43 @@
-import { Component } from 'react'
-import CommentList from './CommentList'
-import AddComment from './AddComment'
-import Loading from './Loading'
-import Error from './Error'
+import { Component } from 'react';
+import CommentList from './CommentList';
+import AddComment from './AddComment';
+import Loading from './Loading';
+import Error from './Error';
 
 class CommentArea extends Component {
   state = {
     comments: [],
     isLoading: true,
     isError: false,
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.asin !== prevProps.asin) {
+      this.fetchComments();
+    }
   }
 
-  componentDidMount = async () => {
-    try {
-      let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments/' +
-          this.props.asin,
-        {
-          headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw',
-          },
+  fetchComments() {
+    const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw';
+  
+    fetch(`https://striveschool-api.herokuapp.com/api/comments/${this.props.asin}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-      )
-      console.log(response)
-      if (response.ok) {
-        let comments = await response.json()
-        this.setState({ comments: comments, isLoading: false, isError: false })
-      } else {
-        console.log('error')
-        this.setState({ isLoading: false, isError: true })
-      }
-    } catch (error) {
-      console.log(error)
-      this.setState({ isLoading: false, isError: true })
-    }
+        return response.json();
+      })
+      .then((comments) => {
+        this.setState({ comments, isLoading: false, isError: false });
+      })
+      .catch((error) => {
+        console.error('Error fetching comments:', error);
+        this.setState({ isLoading: false, isError: true });
+      });
   }
 
   render() {
@@ -44,8 +48,9 @@ class CommentArea extends Component {
         <AddComment asin={this.props.asin} />
         <CommentList commentsToShow={this.state.comments} />
       </div>
-    )
+    );
   }
 }
 
-export default CommentArea
+export default CommentArea;
+
