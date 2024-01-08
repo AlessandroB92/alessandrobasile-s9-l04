@@ -8,7 +8,7 @@ const SingleComment = ({ comment }) => {
         {
           method: 'DELETE',
           headers: {
-            Authorization: 'Bearer your-auth-token-goes-here',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw',
           },
         }
       )
@@ -27,7 +27,7 @@ const SingleComment = ({ comment }) => {
       {comment.comment}
       <Button
         variant="danger"
-        className="ml-2"
+        className="mx-2 px-3"
         onClick={() => deleteComment(comment._id)}
       >
         Delete

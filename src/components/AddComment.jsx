@@ -20,7 +20,7 @@ class AddComment extends Component {
           body: JSON.stringify(this.state.comment),
           headers: {
             'Content-type': 'application/json',
-            Authorization: 'Bearer your-auth-token-goes-here',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw',
           },
         }
       )
@@ -83,7 +83,7 @@ class AddComment extends Component {
               <option>5</option>
             </Form.Control>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="m-2 px-4">
             Submit
           </Button>
         </Form>
