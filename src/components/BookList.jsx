@@ -13,8 +13,8 @@ class BookList extends Component {
         <Row>
           <Col>
             <Form.Group>
-              <Form.Label>Search a book</Form.Label>
-              <Form.Control
+              <Form.Label className='fs-5 fw-bold py-2 px-1'>Search a book</Form.Label>
+              <Form.Control className='searchInput'
                 type="text"
                 placeholder="Search here"
                 value={this.state.searchQuery}
