@@ -24,7 +24,7 @@ const SingleComment = ({ comment }) => {
 
   return (
     <ListGroup.Item>
-      {comment.comment}
+      {comment.comment} : {comment.rate}/5
       <Button
         variant="danger"
         className="mx-2 px-3"
