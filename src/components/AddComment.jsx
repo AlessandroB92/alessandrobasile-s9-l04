@@ -8,7 +8,8 @@ const AddComment = ({ asin }) => {
     elementId: asin,
   });
 
-  const sendComment = async () => {
+  const sendComment = async (e) => {
+    e.preventDefault();
     try {
       let response = await fetch(
         'https://striveschool-api.herokuapp.com/api/comments',

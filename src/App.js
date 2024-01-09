@@ -18,21 +18,21 @@ function App() {
   };
 
   return (
-      <>
-        <Container>
+    <>
+      <Container>
         <MyNav />
-          <Row>
-            <Col md={8}>
-              <Welcome />
-              <BookList books={fantasy} onBookSelect={handleBookSelect} selectedAsin={selectedBookAsin} />
-            </Col>
-            <Col md={4}>
-              {selectedBookAsin && <CommentArea asin={selectedBookAsin} />}
-            </Col>
-          </Row>
-        </Container>
-        <MyFooter />
-      </>
+        <Welcome />
+        <Row>
+          <Col md={8}>
+            <BookList books={fantasy} onBookSelect={handleBookSelect} selectedAsin={selectedBookAsin} />
+          </Col>
+          <Col md={4}>
+            {selectedBookAsin && <CommentArea asin={selectedBookAsin} />}
+          </Col>
+        </Row>
+      </Container>
+      <MyFooter />
+    </>
   );
 }
 
