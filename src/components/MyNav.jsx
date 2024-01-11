@@ -1,13 +1,23 @@
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 
 const MyNav = () => (
-  <Navbar bg="dark" variant="dark">
-    <Navbar.Brand className="px-4"href="#home">EpiBooks</Navbar.Brand>
-    <Nav className="mr-auto">
-      <Nav.Link href="#home">Shop</Nav.Link>
-      <Nav.Link href="#about">About</Nav.Link>
-      <Nav.Link href="#browse">Browse</Nav.Link>
-    </Nav>
+  <Navbar
+    expand="lg"
+    className="bg-body-tertiary mb-3"
+    bg="dark"
+    data-bs-theme="dark"
+  >
+    <Container fluid>
+      <Navbar.Brand href="#">EpiBooks</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          <Nav.Link href="#">Home</Nav.Link>
+          <Nav.Link href="#">About</Nav.Link>
+          <Nav.Link href="#">Browse</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
   </Navbar>
 )
 

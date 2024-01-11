@@ -1,39 +1,26 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import MyNav from './components/MyNav';
-import MyFooter from './components/MyFooter';
-import Welcome from './components/Welcome';
-import { Container, Row, Col } from 'react-bootstrap';
-import BookList from './components/BookList';
-import CommentArea from './components/CommentArea'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
+import MyNav from './components/MyNav'
+import MyFooter from './components/MyFooter'
+import Welcome from './components/Welcome'
+// import AllTheBooks from './components/AllTheBooks'
+import { Container } from 'react-bootstrap'
+import BookList from './components/BookList'
 
-import fantasy from './data/fantasy.json';
+import fantasy from './data/fantasy.json'
 
 function App() {
-  const [selectedBookAsin, setSelectedBookAsin] = useState(null);
-
-  const handleBookSelect = (asin) => {
-    setSelectedBookAsin(asin);
-  };
-
   return (
     <>
+      <MyNav />
       <Container>
-        <MyNav />
         <Welcome />
-        <Row>
-          <Col md={8}>
-            <BookList books={fantasy} onBookSelect={handleBookSelect} selectedAsin={selectedBookAsin} />
-          </Col>
-          <Col md={4}>
-            {selectedBookAsin && <CommentArea asin={selectedBookAsin} />}
-          </Col>
-        </Row>
+        {/* <AllTheBooks /> */}
+        <BookList books={fantasy} />
       </Container>
       <MyFooter />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

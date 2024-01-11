@@ -8,29 +8,29 @@ const SingleComment = ({ comment }) => {
         {
           method: 'DELETE',
           headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTljMTVlYWUwZGQxZDAwMTgyZDE4MzUiLCJpYXQiOjE3MDQ3MjgwNDIsImV4cCI6MTcwNTkzNzY0Mn0.d3NYogX9x1Trv4HDeBugXlpKHp-yZ-GurJVZjxwKc_w',
           },
         }
       )
       if (response.ok) {
-        alert('Comment was deleted successfully!')
+        alert('La recensione è stata elimata!')
       } else {
-        alert('Error - comment was NOT deleted!')
+        throw new Error('La recensione non è stata eliminata!')
       }
     } catch (error) {
-      alert('Error - comment was NOT deleted!')
+      alert(error)
     }
   }
 
   return (
-    <ListGroup.Item>
-      {comment.comment} : {comment.rate}/5
+    <ListGroup.Item data-testid="single-comment">
+      {comment.comment}
       <Button
         variant="danger"
-        className="mx-2 px-3"
+        className="ms-2"
         onClick={() => deleteComment(comment._id)}
       >
-        Delete
+        Elimina
       </Button>
     </ListGroup.Item>
   )

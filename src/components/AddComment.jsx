@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react'
+import { Button, Form } from 'react-bootstrap'
 
 const AddComment = ({ asin }) => {
   const [comment, setComment] = useState({
     comment: '',
     rate: 1,
-    elementId: asin,
-  });
+    elementId: null,
+  })
+
+  useEffect(() => {
+    setComment((c) => ({
+      ...c,
+      elementId: asin,
+    }))
+  }, [asin])
 
   const sendComment = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       let response = await fetch(
         'https://striveschool-api.herokuapp.com/api/comments',
@@ -18,35 +25,33 @@ const AddComment = ({ asin }) => {
           body: JSON.stringify(comment),
           headers: {
             'Content-type': 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTljMTVlYWUwZGQxZDAwMTgyZDE4MzUiLCJpYXQiOjE3MDQ3MjgwNDIsImV4cCI6MTcwNTkzNzY0Mn0.d3NYogX9x1Trv4HDeBugXlpKHp-yZ-GurJVZjxwKc_w',
           },
         }
-      );
+      )
       if (response.ok) {
-        alert('Comment was sent!');
+        alert('Recensione inviata!')
         setComment({
           comment: '',
           rate: 1,
-          elementId: asin,
-        });
+          elementId: null,
+        })
       } else {
-        console.log('error');
-        alert('something went wrong');
+        throw new Error('Qualcosa è andato storto')
       }
     } catch (error) {
-      console.log('error');
+      alert(error)
     }
-  };
+  }
 
   return (
     <div className="my-3">
       <Form onSubmit={sendComment}>
-        <Form.Group>
-          <Form.Label>Comment text</Form.Label>
+        <Form.Group className="mb-2">
+          <Form.Label>Recensione</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Add comment here"
+            placeholder="Inserisci qui il testo"
             value={comment.comment}
             onChange={(e) =>
               setComment({
@@ -56,8 +61,8 @@ const AddComment = ({ asin }) => {
             }
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Rating</Form.Label>
+        <Form.Group className="mb-2">
+          <Form.Label>Valutazione</Form.Label>
           <Form.Control
             as="select"
             value={comment.rate}
@@ -75,12 +80,12 @@ const AddComment = ({ asin }) => {
             <option>5</option>
           </Form.Control>
         </Form.Group>
-        <Button variant="primary" type="submit" className="m-2 px-4">
-          Submit
+        <Button variant="primary" type="submit">
+          Invia
         </Button>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default AddComment;
+export default AddComment

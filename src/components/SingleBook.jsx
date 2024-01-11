@@ -1,20 +1,22 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap'
 
-const SingleBook = ({ book, onBookSelect, isSelected }) => {
+const SingleBook = ({ changeSelectedBook, selectedBook, book }) => {
   return (
-    <Card
-      onClick={() => onBookSelect(book.asin)}
-      style={{ border: isSelected ? '3px solid red' : 'none' }}
-    >
-      <Card.Img variant="top" src={book.img} />
-      <Card.Body>
-        <Card.Title style={{ color: 'black' }}>
-          {book.title}
-        </Card.Title>
-      </Card.Body>
-    </Card>
-  );
+    <>
+      <Card
+        onClick={() => changeSelectedBook(book.asin)}
+        style={{
+          border: selectedBook === book.asin ? '3px solid red' : 'none',
+        }}
+        data-testid="book-card"
+      >
+        <Card.Img variant="top" src={book.img} />
+        <Card.Body>
+          <Card.Title style={{ color: 'black' }}>{book.title}</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
+  )
 }
 
-export default SingleBook;
+export default SingleBook

@@ -1,53 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import CommentList from './CommentList';
-import AddComment from './AddComment';
-import Error from './Error';
+import { useEffect, useState } from 'react'
+import CommentList from './CommentList'
+import AddComment from './AddComment'
+import Loading from './Loading'
+import Error from './Error'
 
-const CommentArea = (props) => {
-  const [comments, setComments] = useState([]);
-  const [isError, setIsError] = useState(false);
+const CommentArea = ({ asin }) => {
+  const [comments, setComments] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
-    const fetchComments = async () => {
-      const apiKey =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTcyZmVhNmZlMDMxZTAwMTliYTE0ZjUiLCJpYXQiOjE3MDQ3MTkwNTgsImV4cCI6MTcwNTkyODY1OH0.430xQtiv-Y5uDqKorng6e9137CSJXxwMV81zztiK5Pw';
-
+    const getComments = async () => {
+      setIsLoading(true)
       try {
-        const response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/comments/${props.asin}`,
+        let response = await fetch(
+          'https://striveschool-api.herokuapp.com/api/comments/' + asin,
           {
             headers: {
-              Authorization: `Bearer ${apiKey}`,
+              Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTljMTVlYWUwZGQxZDAwMTgyZDE4MzUiLCJpYXQiOjE3MDQ3MjgwNDIsImV4cCI6MTcwNTkzNzY0Mn0.d3NYogX9x1Trv4HDeBugXlpKHp-yZ-GurJVZjxwKc_w',
             },
           }
-        );
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        )
+        console.log(response)
+        if (response.ok) {
+          let comments = await response.json()
+          setComments(comments)
+          setIsLoading(false)
+          setIsError(false)
+        } else {
+          console.log('error')
+          setIsLoading(false)
+          setIsError(true)
         }
-
-        const commentsData = await response.json();
-        setComments(commentsData);
-        setIsError(false);
       } catch (error) {
-        console.error('Error fetching comments:', error);
-        setIsError(true);
+        console.log(error)
+        setIsLoading(false)
+        setIsError(true)
       }
-    };
-
-    if (props.asin) {
-      fetchComments();
     }
-  }, [props.asin]);
+    if (asin) {
+      getComments()
+    }
+  }, [asin])
 
   return (
     <div className="text-center">
+      {isLoading && <Loading />}
       {isError && <Error />}
-      <AddComment asin={props.asin} />
+      <AddComment asin={asin} />
       <CommentList commentsToShow={comments} />
     </div>
-  );
-};
+  )
+}
 
-export default CommentArea;
-
+export default CommentArea
