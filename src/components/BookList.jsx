@@ -49,4 +49,4 @@ const BookList = ({ books }) => {
   )
 }
 
-export default BookList
+export default BookList;
