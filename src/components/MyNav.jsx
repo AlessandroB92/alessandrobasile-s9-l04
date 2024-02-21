@@ -1,6 +1,7 @@
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import React from "react";
+import { Navbar, Nav, Container, Form } from "react-bootstrap";
 
-const MyNav = () => (
+const MyNav = ({ setSearchQuery }) => (
   <Navbar
     expand="lg"
     className="bg-body-tertiary mb-3"
@@ -16,9 +17,15 @@ const MyNav = () => (
           <Nav.Link href="#">About</Nav.Link>
           <Nav.Link href="#">Browse</Nav.Link>
         </Nav>
+        <Form.Control
+          style={{ width: "20%" }}
+          type="search"
+          placeholder="Cerca un libro"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </Navbar.Collapse>
     </Container>
   </Navbar>
-)
+);
 
-export default MyNav
+export default MyNav;
